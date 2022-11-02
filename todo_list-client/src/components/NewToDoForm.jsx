@@ -1,8 +1,14 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Col, Form, Dropdown } from 'react-bootstrap'
+import { useState } from "react";
 
 function NewToDoForm() {
+
+    const [task, setTask] = useState('');
+    console.log(task)
+
+
     return (
         <Form className="d-flex px-2" >
      
@@ -12,6 +18,7 @@ function NewToDoForm() {
                 type="text"
                 autoFocus
                 autoComplete="off"
+                onChange={(e) => setTask(e.target.value)}
                 />
         </Form.Group>
 

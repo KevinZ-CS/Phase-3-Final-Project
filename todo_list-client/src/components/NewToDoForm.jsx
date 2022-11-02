@@ -6,7 +6,8 @@ import { useState } from "react";
 function NewToDoForm() {
 
     const [task, setTask] = useState('');
-    console.log(task)
+    const [date, setDate] = useState('');
+    console.log(date)
 
 
     return (
@@ -19,11 +20,17 @@ function NewToDoForm() {
                 autoFocus
                 autoComplete="off"
                 onChange={(e) => setTask(e.target.value)}
+                value={task}
                 />
         </Form.Group>
 
         <Col className="mt-4 py-1 px-1 d-flex">
-        <input type='date'></input>
+        <input 
+        type='date'
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        >
+        </input>
         </Col>
 
 

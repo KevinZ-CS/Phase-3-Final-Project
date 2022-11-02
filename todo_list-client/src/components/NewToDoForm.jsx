@@ -7,11 +7,16 @@ function NewToDoForm() {
 
     const [task, setTask] = useState('');
     const [date, setDate] = useState('');
-    console.log(date)
+    const [category, setCategory] = useState('Select Category');
+    console.log(category)
+
+    function handleClick(e) {
+        setCategory(e.target.value)
+    }
 
 
     return (
-        <Form className="d-flex px-2" >
+    <Form className="d-flex px-2" >
      
         <Form.Group className="task-input px-2 col-md-4">
                     <label>Task:</label>
@@ -34,16 +39,15 @@ function NewToDoForm() {
         </Col>
 
 
-
         <Dropdown className="mt-4 px-1">
-        <Dropdown.Toggle variant="success">
-            Select Category
+        <Dropdown.Toggle variant="success"  >
+            {category}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            <Dropdown.Item as='button' value='School' onClick={handleClick}>School</Dropdown.Item>
+            <Dropdown.Item as='button' value='Work' onClick={handleClick}>Work</Dropdown.Item>
+            <Dropdown.Item as='button' value='Personal' onClick={handleClick}>Personal</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
 

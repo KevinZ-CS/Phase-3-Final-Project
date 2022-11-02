@@ -1,0 +1,16 @@
+.delete-btn {
+float: right;
+margin-top: -30px;
+}
+
+.list-item {
+  margin-top: 5px;
+}
+
+.filter-dropdown {
+  margin-top: -30px;
+}
+
+.strike {
+  text-decoration: line-through;
+}

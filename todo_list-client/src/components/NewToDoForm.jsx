@@ -8,7 +8,7 @@ function NewToDoForm() {
     const [task, setTask] = useState('');
     const [date, setDate] = useState('');
     const [category, setCategory] = useState('Select Category');
-    console.log(category)
+
 
     function handleClick(e) {
         setCategory(e.target.value)

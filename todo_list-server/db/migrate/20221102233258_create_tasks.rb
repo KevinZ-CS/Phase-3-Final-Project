@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.string :task
       t.integer :category_id
       t.integer :due_date_id
+      t.timestamps
     end
   end
 end

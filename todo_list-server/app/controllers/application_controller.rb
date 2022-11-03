@@ -28,10 +28,19 @@ class ApplicationController < Sinatra::Base
 
   end
 
+  patch '/taks/:id' do
+    task = Task.find(params[:id])
+    task.update(complete: params[:complete])
+    task.to_json
+
+  end
+
   delete '/tasks/:id' do
     task = Task.find(params[:id])
     task.destroy
     task.to_json
   end
+
+
 
 end

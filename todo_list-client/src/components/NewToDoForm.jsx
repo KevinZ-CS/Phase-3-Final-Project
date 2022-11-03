@@ -14,9 +14,32 @@ function NewToDoForm() {
         setCategory(e.target.value)
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+    
+        fetch("http://localhost:9292/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            task: task,
+            category: category,
+            due_date: date,
+          }),
+        })
+          .then((r) => r.json())
+          .then((newTask) => {
+            console.log(newTask);
+            setTask('');
+            setCategory('Select Category')
+            setDate('')
+          });
+      }
+
 
     return (
-    <Form className="d-flex px-2" >
+    <Form className="d-flex px-2" onSubmit={handleSubmit} >
      
         <Form.Group className="task-input px-2 col-md-4">
                     <label>Task:</label>

@@ -8,6 +8,8 @@ function ListItem({ task, onTaskDelete }) {
 
     const [check, setCheck] = useState(false)
 
+   
+
     function handleDeleteClick() {
         fetch(`http://localhost:9292/tasks/${task.id}`, {
             method: "DELETE",
@@ -16,12 +18,31 @@ function ListItem({ task, onTaskDelete }) {
         onTaskDelete(task.id)
     }
 
+    function handleCheckChange(e) {
+        e.preventDefault();
+    
+        fetch(`http://localhost:9292/tasks/${task.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            complete: !check,
+          }),
+        })
+          .then((r) => r.json())
+          .then((check) => setCheck(check.complete)
+          );
+      }
+
+    
+
     return (
 
     <ListGroup.Item variant="success">
 
         <span className="d-flex list-item">
-            <Form.Check className="px-2" checked={check} onChange={(e) => setCheck(!check)}/>
+            <Form.Check className="px-2" checked={check} onChange={handleCheckChange}/>
             <span className={check ? "strike" : ''}>{task.task}</span>
         </span>
 

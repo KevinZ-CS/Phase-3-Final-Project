@@ -4,10 +4,17 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function ListItem({ task }) {
+function ListItem({ task, onTaskDelete }) {
 
     const [check, setCheck] = useState(false)
 
+    function handleDeleteClick() {
+        fetch(`http://localhost:9292/tasks/${task.id}`, {
+            method: "DELETE",
+          });
+
+        onTaskDelete(task.id)
+    }
 
     return (
 
@@ -19,7 +26,7 @@ function ListItem({ task }) {
         </span>
 
         <span  className="delete-btn">
-        <Button className="" type="button" variant="danger">Delete</Button>
+        <Button onClick={handleDeleteClick} type="button" variant="danger">Delete</Button>
         </span>  
 
     </ListGroup.Item>

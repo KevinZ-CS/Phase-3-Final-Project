@@ -16,6 +16,11 @@ function ToDoList() {
     .then((tasks) => setTasks(tasks))
     },[]);
 
+    function handleDeleteTask(id) {
+        const updatedTasks = tasks.filter((task) => task.id !== id);
+        setTasks(updatedTasks);
+      }
+
 return (
 <Container className="py-4">
     <Row>
@@ -41,7 +46,7 @@ return (
     </Dropdown>
 
     <ListGroup>
-        {tasks.map((task) => <ListItem task={task} key={task.id} /> )}
+        {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} /> )}
     </ListGroup>
 
 

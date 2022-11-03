@@ -1,11 +1,14 @@
 import React from "react";
 import ToDoList from "./ToDoList";
+import { Route, Switch } from  'react-router-dom'
 
 function App() {
   return (
-    <main>
-      <ToDoList/>
-    </main>
+    <Switch>
+      <Route exact path='/'>
+         <ToDoList/>
+      </Route>
+    </Switch>
   );
 }
 

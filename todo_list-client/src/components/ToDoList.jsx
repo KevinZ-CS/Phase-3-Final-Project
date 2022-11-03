@@ -13,7 +13,7 @@ function ToDoList() {
     useEffect(() => {
     fetch("http://localhost:9292/tasks")
     .then((r) => r.json())
-    .then((tasks) => console.log(tasks) )
+    .then((tasks) => setTasks(tasks))
     },[]);
 
 return (
@@ -41,7 +41,7 @@ return (
     </Dropdown>
 
     <ListGroup>
-        <ListItem />
+        {tasks.map((task) => <ListItem task={task} key={task.id} /> )}
     </ListGroup>
 
 

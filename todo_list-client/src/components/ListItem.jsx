@@ -4,10 +4,10 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function ListItem() {
+function ListItem({ task }) {
 
     const [check, setCheck] = useState(false)
-    console.log(check)
+
 
     return (
 
@@ -15,7 +15,7 @@ function ListItem() {
 
         <span className="d-flex list-item">
             <Form.Check className="px-2" checked={check} onChange={(e) => setCheck(!check)}/>
-            <span className={check ? "strike" : ''}>Chore: Take dog out for a walk</span>
+            <span className={check ? "strike" : ''}>{task.task}</span>
         </span>
 
         <span  className="delete-btn">

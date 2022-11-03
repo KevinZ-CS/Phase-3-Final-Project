@@ -10,7 +10,7 @@ class ApplicationController < Sinatra::Base
   post '/tasks' do
 
     task = Task.create(
-      task: "#{params[:category]}: #{params[:task]} due #{params[:due_date]}"
+      task: "#{params[:category]}: #{params[:task]} due #{params[:due_date]}",
       complete: false
       )
     category = Category.find_or_create_by(

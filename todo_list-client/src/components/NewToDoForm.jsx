@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Col, Form, Dropdown } from 'react-bootstrap'
 import { useState } from "react";
 
-function NewToDoForm() {
+function NewToDoForm({ onAddNewTask }) {
 
     const [task, setTask] = useState('');
     const [date, setDate] = useState('');
@@ -30,7 +30,7 @@ function NewToDoForm() {
         })
           .then((r) => r.json())
           .then((newTask) => {
-            console.log(newTask);
+            onAddNewTask(newTask);
             setTask('');
             setCategory('Select Category')
             setDate('')
@@ -61,6 +61,8 @@ function NewToDoForm() {
         </input>
         </Col>
 
+        
+
 
         <Dropdown className="mt-4 px-1">
         <Dropdown.Toggle variant="success"  >
@@ -68,15 +70,15 @@ function NewToDoForm() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-            <Dropdown.Item as='button' value='School' onClick={handleClick}>School</Dropdown.Item>
-            <Dropdown.Item as='button' value='Work' onClick={handleClick}>Work</Dropdown.Item>
-            <Dropdown.Item as='button' value='Personal' onClick={handleClick}>Personal</Dropdown.Item>
+            <Dropdown.Item as='button' type="button" value='School' onClick={handleClick}>School</Dropdown.Item>
+            <Dropdown.Item as='button' type="button" value='Work' onClick={handleClick}>Work</Dropdown.Item>
+            <Dropdown.Item as='button' type="button" value='Personal' onClick={handleClick}>Personal</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
 
 
         <Col className="mt-4 px-1">
-        <Button className="add-to-list-btn">Add to List</Button>
+        <Button type='submit' className="add-to-list-btn">Add to List</Button>
         </Col>
 
 

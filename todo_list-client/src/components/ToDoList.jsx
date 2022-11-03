@@ -16,6 +16,10 @@ function ToDoList() {
     .then((tasks) => setTasks(tasks))
     },[]);
 
+    function handleAddTask(newTask) {
+      setTasks([...tasks, newTask]);
+    }
+
     function handleDeleteTask(id) {
         const updatedTasks = tasks.filter((task) => task.id !== id);
         setTasks(updatedTasks);
@@ -27,7 +31,7 @@ return (
     <Card>
         <Card.Header className="h2 bg-white">ToDo:</Card.Header>
 
-       <NewToDoForm />
+       <NewToDoForm onAddNewTask={handleAddTask} />
           
     <hr />
 

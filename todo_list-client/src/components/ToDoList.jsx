@@ -3,8 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Card, Button, Form, Dropdown, ListGroup } from 'react-bootstrap'
 import NewToDoForm from "./NewToDoForm";
 import ListItem from "./ListItem";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function ToDoList() {
+
+    const [tasks, setTasks] = useState([])
+
+    useEffect(() => {
+    fetch("http://localhost:9292/tasks")
+    .then((r) => r.json())
+    .then((tasks) => console.log(tasks) )
+    },[]);
 
 return (
 <Container className="py-4">

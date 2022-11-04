@@ -20,7 +20,7 @@ function EachCategory({ category, onDeleteCategory }) {
     return (
         <ListGroup.Item variant="success">
        
-        <Link style={{textDecoration: 'none'}} to={`/${category.id}`} ><h3 className="text-center">{category.category}</h3></Link> 
+        <Link style={{textDecoration: 'none'}} to={`/${category.category}/${category.id}`} ><h3 className="text-center">{category.category}</h3></Link> 
         <Button variant="danger" className="delete-category" onClick={handleDeleteClick}>X</Button>
     
       

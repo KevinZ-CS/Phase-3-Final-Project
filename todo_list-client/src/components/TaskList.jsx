@@ -3,43 +3,59 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Card, Dropdown, ListGroup, Form, Col, Button } from 'react-bootstrap'
 import NewToDoForm from "./NewToDoForm";
 import ListItem from "./ListItem";
-import { useState } from "react";
-import { useEffect } from "react";
-import EachCategory from "./EachCategory";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-function CategoryList({ data, setAddedNewCategory, setData }) {
 
-    // const [tasks, setTasks] = useState([])
-    // const [data, setData] = useState([])
+function TaskList({ data, setAddedNewCategory, setData }) {
+
+    const [tasks, setTasks] = useState([])
     const [newCategory, setNewCategory] = useState('')
-    // const [addedNewCategory, setAddedNewCategory] = useState(false)
+    const [newTask, setNewTask] = useState('')
+  
 
-    // useEffect(() => {
-    // fetch("http://localhost:9292/categories")
-    // .then((r) => r.json())
-    // .then((data) => setData(data))
-    // },[addedNewCategory]);
+    const { category, id } = useParams();
+  
+    // const filteredCategory = data.filter((data) => data.id.toString() === id) 
 
+    // console.log(filteredCategory)
 
+    // const [ tasksObj ] = filteredCategory
+  
+    // setTasks(tasksObj.tasks)
 
+    // tasksObj ? setTasks(tasksObj.tasks) : console.log('missed it')
 
+    useEffect(
+        () => { 
+            if(data.length != 0)  {
+            const filteredCategory = data.filter((data) => data.id.toString() === id) 
+            const [ tasksObj ] = filteredCategory
+            setTasks(tasksObj.tasks)
+            }
+        }, 
+    [data]) 
 
-    function handleSubmitCategory(e) {
+   
+
+    function handleSubmitTask(e) {
       e.preventDefault();
   
-      fetch("http://localhost:9292/category", {
+      fetch("http://localhost:9292/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          category: newCategory,
+          task: newTask,
+          category_id: id,
         }),
       })
         .then((r) => r.json())
-        .then((newCategory) => {
-          setNewCategory('')
-          setAddedNewCategory(true)
+        .then((newTask) => {
+            console.log(newTask)
+          setNewTask('')
+          handleAddTask(newTask)
         });
     }
 
@@ -47,58 +63,44 @@ function CategoryList({ data, setAddedNewCategory, setData }) {
 
   
 
-    // function handleAddTask(newTask) {
-    //   setTasks([...tasks, newTask]);
-    // }
+    function handleAddTask(newTask) {
+      setTasks([...tasks, newTask]);
+    }
 
-    function handleDeleteCategory(id) {
-        const updatedData = data.filter((data) => data.id !== id);
-        setData(updatedData);
+    function handleDeleteTask(id) {
+        const updatedTask = tasks.filter((task) => task.id !== id);
+        setTasks(updatedTask);
       }
 
 return (
+    <React.Fragment>
+    { tasks ? (
 <Container className="py-4">
     <Row>
-      <div className="col-md-4"></div>
-    <Card className="col-md-4">
-        <Card.Header className="h2 bg-white">ToDo:</Card.Header>
+      <div className="col-md-2"></div>
+    <Card className="col-md-8">
+        <Card.Header className="h2 bg-white">ToDo: {category}</Card.Header>
 
-       {/* <NewToDoForm onAddNewTask={handleAddTask} /> */}
-
-
-    <ListGroup>
-      {data.map((category) => <EachCategory category={category} key={category.id} onDeleteCategory={handleDeleteCategory} />)}
-    </ListGroup>
           
 
     <Card.Body>
  
-    {/* <Dropdown className="py-4 filter-dropdown">
-      <Dropdown.Toggle variant="success">
-        Dropdown Button
-      </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown> */}
 
-    {/* <ListGroup>
+    <ListGroup>
         {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} /> )}
-    </ListGroup> */}
-
-<Form className="d-flex" onSubmit={handleSubmitCategory} >
+    </ListGroup>
+       
+<Form className="d-flex" onSubmit={handleSubmitTask} >
      
      <Form.Group className="task-input px-2">
-                 <label>Add Category:</label>
+                 <label>Add Task:</label>
              <Form.Control 
              type="text"
              autoFocus
              autoComplete="off"
-             onChange={(e) => setNewCategory(e.target.value)}
-             value={newCategory}
+             onChange={(e) => setNewTask(e.target.value)}
+             value={newTask}
              />
      </Form.Group>
 
@@ -108,7 +110,11 @@ return (
      </Col>
 
 
+    
+
+
  </Form>
+ <div>Back</div>
 
 
     </Card.Body>
@@ -116,6 +122,9 @@ return (
     </Row>
 </Container>
 
+) : (null)
+} 
+</React.Fragment>
 )}
 
-export default CategoryList
+export default TaskList

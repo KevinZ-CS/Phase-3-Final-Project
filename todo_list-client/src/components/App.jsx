@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Route, Switch } from  'react-router-dom';
 import CategoryList from "./CategoryList";
-import { Route, Switch } from  'react-router-dom'
+import TaskList from "./TaskList";
 
 function App() {
 
@@ -20,8 +21,8 @@ function App() {
       <Route exact path='/'>
          <CategoryList data={data} setAddedNewCategory={setAddedNewCategory} setData={setData} />
       </Route>
-      <Route exact path='/:id'>
-         {/* <ToDoList data={data} /> */}
+      <Route exact path='/:category/:id'>
+         <TaskList data={data} />
       </Route>
     </Switch>
   );

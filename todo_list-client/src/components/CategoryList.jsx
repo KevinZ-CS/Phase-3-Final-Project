@@ -7,24 +7,21 @@ import { useState } from "react";
 import { useEffect } from "react";
 import EachCategory from "./EachCategory";
 
-function ToDoList() {
+function CategoryList({ data, setAddedNewCategory, setData }) {
 
-    const [tasks, setTasks] = useState([])
-    const [data, setData] = useState([])
+    // const [tasks, setTasks] = useState([])
+    // const [data, setData] = useState([])
     const [newCategory, setNewCategory] = useState('')
-    const [addedNewCategory, setAddedNewCategory] = useState(false)
+    // const [addedNewCategory, setAddedNewCategory] = useState(false)
 
-    useEffect(() => {
-    fetch("http://localhost:9292/categories")
-    .then((r) => r.json())
-    .then((data) => setData(data))
-    },[addedNewCategory]);
+    // useEffect(() => {
+    // fetch("http://localhost:9292/categories")
+    // .then((r) => r.json())
+    // .then((data) => setData(data))
+    // },[addedNewCategory]);
 
 
 
-    function updateCategory(data) {
-      data.map((data) => ({id: data.id, category: data.category}))
-    } 
 
 
     function handleSubmitCategory(e) {
@@ -50,9 +47,9 @@ function ToDoList() {
 
   
 
-    function handleAddTask(newTask) {
-      setTasks([...tasks, newTask]);
-    }
+    // function handleAddTask(newTask) {
+    //   setTasks([...tasks, newTask]);
+    // }
 
     function handleDeleteCategory(id) {
         const updatedData = data.filter((data) => data.id !== id);
@@ -121,4 +118,4 @@ return (
 
 )}
 
-export default ToDoList
+export default CategoryList

@@ -1,21 +1,26 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Card, Dropdown, ListGroup, Form, Col, Button } from 'react-bootstrap'
-import NewToDoForm from "./NewToDoForm";
+import { Container, Row, Card, ListGroup, Form, Col, Button } from 'react-bootstrap'
 import ListItem from "./ListItem";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 
-function TaskList({ data, setAddedNewCategory, setData }) {
 
-    const [tasks, setTasks] = useState([])
-    const [newCategory, setNewCategory] = useState('')
-    const [newTask, setNewTask] = useState('')
-  
+function TaskList({ data, setUpdatedComplete, setAddedNewTask, addedNewTask, setDeletedTask, deletedTask  }) {
+  // console.log('hi')
+  // const [check, setCheck] = useState(false)
 
+    const [tasks, setTasks] = useState([]);
+    const [newTask, setNewTask] = useState('');
     const { category, id } = useParams();
+
+    console.log('one time')
   
+    // console.log(tasks)
+
+  
+  // console.log('hi')
     // const filteredCategory = data.filter((data) => data.id.toString() === id) 
 
     // console.log(filteredCategory)
@@ -31,8 +36,8 @@ function TaskList({ data, setAddedNewCategory, setData }) {
             if(data.length != 0)  {
             const filteredCategory = data.filter((data) => data.id.toString() === id) 
             const [ tasksObj ] = filteredCategory
-            setTasks(tasksObj.tasks)
-            }
+            setTasks(tasksObj.tasks) 
+            } 
         }, 
     [data]) 
 
@@ -56,6 +61,7 @@ function TaskList({ data, setAddedNewCategory, setData }) {
             console.log(newTask)
           setNewTask('')
           handleAddTask(newTask)
+          setAddedNewTask(!addedNewTask)
         });
     }
 
@@ -70,6 +76,7 @@ function TaskList({ data, setAddedNewCategory, setData }) {
     function handleDeleteTask(id) {
         const updatedTask = tasks.filter((task) => task.id !== id);
         setTasks(updatedTask);
+        setDeletedTask(!deletedTask);
       }
 
 return (
@@ -88,7 +95,7 @@ return (
 
 
     <ListGroup>
-        {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} /> )}
+        {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} setUpdatedComplete={setUpdatedComplete} /> )}
     </ListGroup>
        
 <Form className="d-flex" onSubmit={handleSubmitTask} >
@@ -114,7 +121,7 @@ return (
 
 
  </Form>
- <div>Back</div>
+ <Link to="/" >Back</Link>
 
 
     </Card.Body>

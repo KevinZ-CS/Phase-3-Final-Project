@@ -4,11 +4,13 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function ListItem({ task, onTaskDelete }) {
+function ListItem({ task, onTaskDelete, setUpdatedComplete }) {
 
-    const [check, setCheck] = useState(false)
+    const [check, setCheck] = useState(task.complete)
 
-   
+    // console.log(check)
+
+    console.log('second')
 
     function handleDeleteClick() {
         fetch(`http://localhost:9292/tasks/${task.id}`, {
@@ -18,9 +20,9 @@ function ListItem({ task, onTaskDelete }) {
         onTaskDelete(task.id)
     }
 
+
     function handleCheckChange(e) {
         e.preventDefault();
-    
         fetch(`http://localhost:9292/tasks/${task.id}`, {
           method: "PATCH",
           headers: {
@@ -31,7 +33,10 @@ function ListItem({ task, onTaskDelete }) {
           }),
         })
           .then((r) => r.json())
-          .then((check) => setCheck(check.complete)
+          .then((check) => {
+            setCheck(check.complete)
+            setUpdatedComplete(check.complete)
+          }
           );
       }
 
@@ -41,7 +46,7 @@ function ListItem({ task, onTaskDelete }) {
 
     <ListGroup.Item variant="success">
 
-        <span className="d-flex list-item">
+        <span className="d-flex list-item"> 
             <Form.Check className="px-2" checked={check} onChange={handleCheckChange}/>
             <span className={check ? "strike" : ''}>{task.task}</span>
         </span>

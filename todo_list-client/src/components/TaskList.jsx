@@ -7,39 +7,20 @@ import { useParams, Link } from "react-router-dom";
 
 
 
-function TaskList({ data, setUpdatedComplete, setAddedNewTask, addedNewTask, setDeletedTask, deletedTask  }) {
-  // console.log('hi')
-  // const [check, setCheck] = useState(false)
+function TaskList() {
+
 
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const { category, id } = useParams();
 
-    console.log('one time')
-  
-    // console.log(tasks)
 
-  
-  // console.log('hi')
-    // const filteredCategory = data.filter((data) => data.id.toString() === id) 
+    useEffect(() => {
+      fetch(`http://localhost:9292/${id}`)
+      .then((r) => r.json())
+      .then((data) => setTasks(data))
+      },[]);
 
-    // console.log(filteredCategory)
-
-    // const [ tasksObj ] = filteredCategory
-  
-    // setTasks(tasksObj.tasks)
-
-    // tasksObj ? setTasks(tasksObj.tasks) : console.log('missed it')
-
-    useEffect(
-        () => { 
-            if(data.length != 0)  {
-            const filteredCategory = data.filter((data) => data.id.toString() === id) 
-            const [ tasksObj ] = filteredCategory
-            setTasks(tasksObj.tasks) 
-            } 
-        }, 
-    [data]) 
 
    
 
@@ -61,13 +42,9 @@ function TaskList({ data, setUpdatedComplete, setAddedNewTask, addedNewTask, set
             console.log(newTask)
           setNewTask('')
           handleAddTask(newTask)
-          setAddedNewTask(!addedNewTask)
         });
     }
 
-
-
-  
 
     function handleAddTask(newTask) {
       setTasks([...tasks, newTask]);
@@ -76,12 +53,22 @@ function TaskList({ data, setUpdatedComplete, setAddedNewTask, addedNewTask, set
     function handleDeleteTask(id) {
         const updatedTask = tasks.filter((task) => task.id !== id);
         setTasks(updatedTask);
-        setDeletedTask(!deletedTask);
+      }
+
+      function handleUpdateTask(updatedTaskObj) {
+        const updatedTasks = tasks.map((task) => {
+          if (task.id === updatedTaskObj.id) {
+            return updatedTaskObj;
+          } else {
+            return task;
+          }
+        });
+        setTasks(updatedTasks);
       }
 
 return (
     <React.Fragment>
-    { tasks ? (
+
 <Container className="py-4">
     <Row>
       <div className="col-md-2"></div>
@@ -95,7 +82,7 @@ return (
 
 
     <ListGroup>
-        {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} setUpdatedComplete={setUpdatedComplete} /> )}
+        {tasks.map((task) => <ListItem task={task} key={task.id} onTaskDelete={handleDeleteTask} onUpdateCheck={handleUpdateTask} /> )}
     </ListGroup>
        
 <Form className="d-flex" onSubmit={handleSubmitTask} >
@@ -129,8 +116,7 @@ return (
     </Row>
 </Container>
 
-) : (null)
-} 
+
 </React.Fragment>
 )}
 

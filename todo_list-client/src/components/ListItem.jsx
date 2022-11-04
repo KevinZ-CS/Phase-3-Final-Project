@@ -4,13 +4,11 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function ListItem({ task, onTaskDelete, setUpdatedComplete }) {
+function ListItem({ task, onTaskDelete, onUpdateCheck }) {
 
     const [check, setCheck] = useState(task.complete)
 
-    // console.log(check)
 
-    console.log('second')
 
     function handleDeleteClick() {
         fetch(`http://localhost:9292/tasks/${task.id}`, {
@@ -35,7 +33,7 @@ function ListItem({ task, onTaskDelete, setUpdatedComplete }) {
           .then((r) => r.json())
           .then((check) => {
             setCheck(check.complete)
-            setUpdatedComplete(check.complete)
+            onUpdateCheck(check)
           }
           );
       }

@@ -46,7 +46,7 @@ function TaskList({ data, setUpdatedComplete, setAddedNewTask, addedNewTask, set
     function handleSubmitTask(e) {
       e.preventDefault();
   
-      fetch("http://localhost:9292/tasks", {
+      fetch(`http://localhost:9292/${category}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

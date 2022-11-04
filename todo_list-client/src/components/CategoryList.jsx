@@ -12,7 +12,7 @@ function CategoryList({ data, setAddedNewCategory, setData }) {
     function handleSubmitCategory(e) {
       e.preventDefault();
   
-      fetch("http://localhost:9292/category", {
+      fetch("http://localhost:9292/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

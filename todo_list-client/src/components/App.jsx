@@ -17,7 +17,7 @@ function App() {
   console.log('hello')
 
   useEffect(() => {
-  fetch("http://localhost:9292/categories")
+  fetch("http://localhost:9292/")
   .then((r) => r.json())
   .then((data) => setData(data))
   },[addedNewCategory, updatedComplete, addedNewTask, deletedTask]);

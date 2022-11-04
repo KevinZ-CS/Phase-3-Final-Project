@@ -2,13 +2,13 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
-  get '/categories' do
+  get '/' do
     categories = Category.all
     categories.to_json(include: :tasks)
   end
 
 
-  post '/tasks' do
+  post '/:id' do
 
     task = Task.create(
       task: params[:task],
@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
 
   end
 
-  post '/category' do
+  post '/' do
 
     category = Category.find_or_create_by(
       category: params[:category]
@@ -42,9 +42,10 @@ class ApplicationController < Sinatra::Base
     task.to_json
   end
 
-  delete '/categories/:id' do
+  delete '/:id' do
     category = Category.find(params[:id])
     category.destroy
+    category.tasks.destroy_all
     category.to_json
   end
 

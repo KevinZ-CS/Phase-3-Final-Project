@@ -29,6 +29,16 @@ class ApplicationController < Sinatra::Base
 
   end
 
+  post '/category' do
+
+    category = Category.find_or_create_by(
+      category: params[:category]
+    )
+
+    category.to_json
+
+  end
+
   patch '/tasks/:id' do
     task = Task.find(params[:id])
     task.update(complete: params[:complete])
@@ -41,6 +51,13 @@ class ApplicationController < Sinatra::Base
     task.destroy
     task.to_json
   end
+
+  delete '/categories/:id' do
+    category = Category.find(params[:id])
+    category.destroy
+    category.to_json
+  end
+
 
 
 

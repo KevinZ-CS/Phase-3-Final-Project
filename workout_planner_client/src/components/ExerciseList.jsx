@@ -1,13 +1,14 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Card, ListGroup, Form, Col, Button } from 'react-bootstrap'
-import Workout from "./Workout";
+import Workout from "./Exercise";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Exercise from "./Exercise";
 
 
 
-function WorkoutList() {
+function ExerciseList() {
 
 
     const [workouts, setWorkouts] = useState([]);
@@ -90,7 +91,7 @@ return (
 
 
     <ListGroup>
-        {workouts.map((workout) => <Workout workout={workout} key={workout.id} onWorkoutDelete={handleDeleteWorkout} onUpdateCheck={handleUpdateWorkout} /> )}
+        {workouts.map((workout) => <Exercise workout={workout} key={workout.id} onWorkoutDelete={handleDeleteWorkout} onUpdateCheck={handleUpdateWorkout} /> )}
     </ListGroup>
        
 <Form className="d-flex" onSubmit={handleSubmitTask} >
@@ -152,4 +153,4 @@ return (
 </React.Fragment>
 )}
 
-export default WorkoutList
+export default ExerciseList

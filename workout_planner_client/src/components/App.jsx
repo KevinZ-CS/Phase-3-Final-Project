@@ -1,6 +1,6 @@
 import { Route, Switch } from  'react-router-dom';
 import CategoryList from "./CategoryList";
-import WorkoutList from "./WorkoutList";
+import ExerciseList from "./ExerciseList";
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
          <CategoryList />
       </Route>
       <Route exact path='/:category/:id'>
-         <WorkoutList />
+         <ExerciseList />
       </Route>
     </Switch>
   );

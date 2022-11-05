@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_05_014747) do
+ActiveRecord::Schema.define(version: 2022_11_05_183822) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category"
   end
 
-  create_table "workouts", force: :cascade do |t|
+  create_table "exercises", force: :cascade do |t|
     t.string "exercise"
     t.string "weight"
     t.string "sets"

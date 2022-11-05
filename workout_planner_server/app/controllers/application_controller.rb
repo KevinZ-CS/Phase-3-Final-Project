@@ -14,14 +14,14 @@ class ApplicationController < Sinatra::Base
 
   get '/:id' do
       category = Category.find(params[:id])
-      workout = category.workouts
-      workout.to_json
+      exercise = category.exercises
+      exercise.to_json
   end
 
 
   post '/:id' do
 
-    workout = Workout.create(
+    exercise = Exercise.create(
       exercise: params[:exercise],
       weight: params[:weight],
       sets: params[:sets],
@@ -29,7 +29,7 @@ class ApplicationController < Sinatra::Base
       category_id: params[:category_id],
       complete: false
       )
-    workout.to_json
+    exercise.to_json
 
   end
 
@@ -43,23 +43,23 @@ class ApplicationController < Sinatra::Base
 
   end
 
-  patch '/workout/:id' do
-    workout = Workout.find(params[:id])
-    workout.update(complete: params[:complete])
-    workout.to_json
+  patch '/exercise/:id' do
+    exercise = Exercise.find(params[:id])
+    exercise.update(complete: params[:complete])
+    exercise.to_json
 
   end
 
-  delete '/workout/:id' do
-    workout = Workout.find(params[:id])
-    workout.destroy
-    workout.to_json
+  delete '/exercise/:id' do
+    exercise = Exercise.find(params[:id])
+    exercise.destroy
+    exercise.to_json
   end
 
   delete '/:id' do
     category = Category.find(params[:id])
     category.destroy
-    category.workouts.destroy_all
+    category.exercises.destroy_all
     category.to_json
   end
 

@@ -4,14 +4,14 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function Workout({ workout, onWorkoutDelete, onUpdateCheck }) {
+function Exercise({ workout, onWorkoutDelete, onUpdateCheck }) {
 
     const [check, setCheck] = useState(workout.complete)
 
 
 
     function handleDeleteClick() {
-        fetch(`http://localhost:9292/workout/${workout.id}`, {
+        fetch(`http://localhost:9292/exercise/${workout.id}`, {
             method: "DELETE",
           });
 
@@ -21,7 +21,7 @@ function Workout({ workout, onWorkoutDelete, onUpdateCheck }) {
 
     function handleCheckChange(e) {
         e.preventDefault();
-        fetch(`http://localhost:9292/workout/${workout.id}`, {
+        fetch(`http://localhost:9292/exercise/${workout.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -49,12 +49,12 @@ function Workout({ workout, onWorkoutDelete, onUpdateCheck }) {
             <span className={check ? "strike" : ''}>{workout.exercise}, Weight: {workout.weight}, Sets: {workout.sets}, Reps/Set: {workout.reps}  </span>
         </span>
 
-        <span  className="delete-btn">
-        <Button onClick={handleDeleteClick} type="button" variant="danger" size="sm" className="px-1 py-0">x</Button>
-        </span>  
+
+        <Button onClick={handleDeleteClick} type="button" variant="danger" className="delete-btn">x</Button>
+       
 
     </ListGroup.Item>
 
     )
 }
-export default Workout
+export default Exercise

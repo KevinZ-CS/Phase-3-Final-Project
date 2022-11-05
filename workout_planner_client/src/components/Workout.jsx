@@ -4,24 +4,24 @@ import { Button, Form, ListGroup } from 'react-bootstrap'
 import { useState } from "react";
 
 
-function ListItem({ task, onTaskDelete, onUpdateCheck }) {
+function Workout({ workout, onWorkoutDelete, onUpdateCheck }) {
 
-    const [check, setCheck] = useState(task.complete)
+    const [check, setCheck] = useState(workout.complete)
 
 
 
     function handleDeleteClick() {
-        fetch(`http://localhost:9292/tasks/${task.id}`, {
+        fetch(`http://localhost:9292/workout/${workout.id}`, {
             method: "DELETE",
           });
 
-        onTaskDelete(task.id)
+        onWorkoutDelete(workout.id)
     }
 
 
     function handleCheckChange(e) {
         e.preventDefault();
-        fetch(`http://localhost:9292/tasks/${task.id}`, {
+        fetch(`http://localhost:9292/workout/${workout.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -46,15 +46,15 @@ function ListItem({ task, onTaskDelete, onUpdateCheck }) {
 
         <span className="d-flex list-item"> 
             <Form.Check className="px-2" checked={check} onChange={handleCheckChange}/>
-            <span className={check ? "strike" : ''}>{task.task}</span>
+            <span className={check ? "strike" : ''}>{workout.exercise}, Weight: {workout.weight}, Sets: {workout.sets}, Reps/Set: {workout.reps}  </span>
         </span>
 
         <span  className="delete-btn">
-        <Button onClick={handleDeleteClick} type="button" variant="danger">Delete</Button>
+        <Button onClick={handleDeleteClick} type="button" variant="danger" size="sm" className="px-1 py-0">x</Button>
         </span>  
 
     </ListGroup.Item>
 
     )
 }
-export default ListItem
+export default Workout

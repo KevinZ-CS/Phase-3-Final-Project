@@ -1,12 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Card, ListGroup, Form, Col, Button } from 'react-bootstrap'
+import { Container, Row, Card, ListGroup, Form, Col, Button, FormGroup } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import EachCategory from "./EachCategory";
+// import 'react-datepicker/dist/react-datepicker.css';
+// import ReactDatePicker from 'react-datepicker';
 
 function CategoryList() {
 
     const [categories, setCategories] = useState([])
     const [newCategory, setNewCategory] = useState('')
+    // const [date, setDate] = useState('')
 
 
 
@@ -49,9 +52,9 @@ function CategoryList() {
 return (
 <Container className="py-4">
     <Row>
-      <div className="col-md-4"></div>
-    <Card className="col-md-4">
-        <Card.Header className="h2 bg-white">ToDo:</Card.Header>
+      <div className="col-md-3"></div>
+    <Card className="col-md-6">
+        <Card.Header className="h2 bg-white">Workout Planner:</Card.Header>
 
 
 
@@ -67,7 +70,7 @@ return (
 <Form className="d-flex" onSubmit={handleSubmitCategory} >
      
      <Form.Group className="task-input px-2">
-                 <label>Add Category:</label>
+                 <label>Workout Category:</label>
              <Form.Control 
              type="text"
              autoFocus
@@ -75,7 +78,23 @@ return (
              onChange={(e) => setNewCategory(e.target.value)}
              value={newCategory}
              />
+      
+      
      </Form.Group>
+
+
+
+      {/* <Col>
+      <Form.Group className="task-input px-2">
+      <label>Workout Date:</label>
+      <Form.Control 
+             type="date"
+             autoComplete="off"
+             onChange={(e) => setDate(e.target.value)}
+             value={date}
+             />
+      </Form.Group>
+      </Col> */}
 
 
      <Col className="mt-4 col-md-2">

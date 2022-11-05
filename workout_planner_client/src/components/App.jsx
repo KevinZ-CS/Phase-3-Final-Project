@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { Route, Switch } from  'react-router-dom';
 import CategoryList from "./CategoryList";
-import TaskList from "./TaskList";
+import WorkoutList from "./WorkoutList";
 
 function App() {
-
-
-
 
   return (
     <Switch>
@@ -14,7 +10,7 @@ function App() {
          <CategoryList />
       </Route>
       <Route exact path='/:category/:id'>
-         <TaskList />
+         <WorkoutList />
       </Route>
     </Switch>
   );

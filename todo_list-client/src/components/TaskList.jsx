@@ -39,7 +39,6 @@ function TaskList() {
       })
         .then((r) => r.json())
         .then((newTask) => {
-            console.log(newTask)
           setNewTask('')
           handleAddTask(newTask)
         });

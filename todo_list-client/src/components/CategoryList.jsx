@@ -1,13 +1,25 @@
-import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Card, ListGroup, Form, Col, Button } from 'react-bootstrap'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EachCategory from "./EachCategory";
 
-function CategoryList({ data, setAddedNewCategory, setData }) {
+function CategoryList() {
 
-
+    const [categories, setCategories] = useState([])
     const [newCategory, setNewCategory] = useState('')
+
+
+
+    useEffect(() => {
+      fetch("http://localhost:9292/")
+      .then((r) => r.json())
+      .then((data) => setCategories(data))
+      },[]);
+
+
+      function handleAddCategory(newCategory) {
+        setCategories([...categories, newCategory]);
+      }
 
     function handleSubmitCategory(e) {
       e.preventDefault();
@@ -23,16 +35,15 @@ function CategoryList({ data, setAddedNewCategory, setData }) {
       })
         .then((r) => r.json())
         .then((newCategory) => {
+          handleAddCategory(newCategory)
           setNewCategory('')
-          setAddedNewCategory(true)
         });
     }
 
 
-
     function handleDeleteCategory(id) {
-        const updatedData = data.filter((data) => data.id !== id);
-        setData(updatedData);
+        const updatedCategories = categories.filter((category) => category.id !== id);
+        setCategories(updatedCategories);
       }
 
 return (
@@ -45,7 +56,7 @@ return (
 
 
     <ListGroup>
-      {data.map((category) => <EachCategory category={category} key={category.id} onDeleteCategory={handleDeleteCategory} />)}
+      {categories.map((category) => <EachCategory category={category} key={category.id} onDeleteCategory={handleDeleteCategory} />)}
     </ListGroup>
           
 

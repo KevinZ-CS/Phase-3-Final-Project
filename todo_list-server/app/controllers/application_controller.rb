@@ -2,9 +2,14 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
+  # get '/' do
+  #   categories = Category.all
+  #   categories.to_json(include: :tasks)
+  # end
+
   get '/' do
     categories = Category.all
-    categories.to_json(include: :tasks)
+    categories.to_json
   end
 
   get '/:id' do
